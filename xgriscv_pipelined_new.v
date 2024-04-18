@@ -11,7 +11,24 @@
 
 `include "xgriscv_defines.v"
 
+module xgriscv_pipeline(
+  input                   clk, reset,
+  output[`ADDR_SIZE-1:0]  pcW);
+  
+  wire [31:0]    instr;
+  wire [31:0]    pcF;
+	wire CPU_MIO, memwrite;
+	wire [`ADDR_SIZE-1:0] ram_addr;
+	wire [`XLEN-1:0] ram_data_in, douta;
+	wire [3:0] WEA;
+  
+  imem U_imem(pcF, instr);
 
+  dmem U_dmem(clk, WEA, ram_addr, ram_data_in, douta);
+
+  xgriscv U_xgriscv(clk, reset, 1'b0, instr, douta, memwrite, pcF, ram_addr, ram_data_in, CPU_MIO, WEA, 1'b0);
+  
+endmodule
 module xgriscv(input  clk, reset,
 					input MIO_ready,
                
