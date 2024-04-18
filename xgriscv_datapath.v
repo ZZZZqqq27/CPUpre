@@ -1,10 +1,10 @@
 //=====================================================================
 //
-// Designer   : Yili Gong
+// Designer   : Junyao Wang
 //
 // Description:
 // As part of the project of Computer Organization Experiments, Wuhan University
-// In spring 2021
+// In spring 2022
 // The datapath of the pipeline.
 // ====================================================================
 
