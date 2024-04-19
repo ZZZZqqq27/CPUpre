@@ -1,10 +1,10 @@
 //=====================================================================
 //
-// Designer   : Junyao Wang
+// Designer   : Yili Gong
 //
 // Description:
 // As part of the project of Computer Organization Experiments, Wuhan University
-// In spring 2022
+// In spring 2021
 // The gadgets.
 //
 // ====================================================================
@@ -194,9 +194,9 @@ module ampattern (input [1:0] addr, input [1:0] swhb, output reg [3:0] amp); //a
   endcase
 endmodule
 
-module hazard (input clk, input memtoreg, input[`RFIDX_WIDTH-1:0] rdE, input[`RFIDX_WIDTH-1:0] rs1D, input[`RFIDX_WIDTH-1:0] rs2D, input writenM, output reg writen);
-	always @ *
-	if(memtoreg && (rdE == rs1D || rdE == rs2D) && writenM)
+module hazard (input memtoreg, input[`RFIDX_WIDTH-1:0] rdE, input[`RFIDX_WIDTH-1:0] rs1D, input[`RFIDX_WIDTH-1:0] rs2D, output reg writen);
+	always @*
+	if(memtoreg && (rdE == rs1D || rdE == rs2D))
 		writen <= 1'b0;
 	else
 		writen <= 1'b1;
@@ -215,7 +215,7 @@ module forward (input regwriteM, input[`RFIDX_WIDTH-1:0] rdM, input[`RFIDX_WIDTH
 			if(!(regwriteM&&(rdM!=0)&&rdM==rs1E)
 				&& rdW == rs1E)	forwardA=2'b01;
 			if(!(regwriteM&&(rdM!=0)&&rdM==rs2E)
-				&& rdW == rs2E) forwardB=2'b01;
+				&& rdW == rs2E) forwardB=2'b10;
 		end
 	end
 endmodule
